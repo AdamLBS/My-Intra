@@ -5,11 +5,13 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -47,12 +49,20 @@ public class LoginActivity extends AppCompatActivity {
         ImageButton login = findViewById(R.id.login_button);
         EditText myAutoLogin = findViewById(R.id.autologinlink);
         EditText myAddress = findViewById(R.id.adress);
+        Button autologin_tutorial = findViewById(R.id.autologin_tuto);
+        autologin_tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/viewerng/viewer?url=https://uploads.admlbs.fr/autologin.pdf"));
+                startActivity(browserIntent);
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                address = myAddress.getText().toString().toLowerCase();
+                address = myAddress.getText().toString().toLowerCase().trim();
                 address.replaceAll("\\s+$", "");
-                autologin = myAutoLogin.getText().toString();
+                autologin = myAutoLogin.getText().toString().trim();
                 System.out.println(address);
                 System.out.println(autologin);
                 full_value = autologin;
@@ -83,26 +93,6 @@ public class LoginActivity extends AppCompatActivity {
     public void check_value(View view) throws IOException, JSONException {
         full_value = autologin + "/user/" + address + "/?format=json";
         whenAsynchronousGetRequest_thenCorrect();
-        JSONObject jObject;
-     /*   if (isValidUrl(full_value))
-        try {
-            jObject = new JSONObject(my_response);
-            JSONArray jArray = jObject.getJSONArray("gpa");
-            JSONObject jObj = jArray.getJSONObject(0);
-            String gpa = jObj.getString("gpa");
-            System.out.println(gpa);
-            Context context = getApplicationContext();
-            CharSequence text = "Connection successful!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-            set_values(jObject, gpa, full_value, autologin, address);
-
-        } catch (JSONException e) {
-            print_toast("Error");
-            e.printStackTrace();
-        }*/
     }
 
     public void compute_val()
@@ -133,7 +123,8 @@ public class LoginActivity extends AppCompatActivity {
             float idle_time = jObj2.getInt("idle");
             editor.putString("log_time", log_time);
             editor.putFloat("active_time", active_time);
-            editor.putFloat("idle_time", idle_time);
+            editor.putFloat("idle_time", idle_time);            editor.apply();
+            editor.apply();
         } catch (JSONException e) {
             e.printStackTrace();
             return;
@@ -146,7 +137,6 @@ public class LoginActivity extends AppCompatActivity {
         String credits = MyObj.getString("credits");
         String promo = MyObj.getString("promo");
         JSONArray jArray = MyObj.getJSONArray("groups");
-        set_log_time(MyObj);
         JSONObject jObj = jArray.getJSONObject(0);
         String city = jObj.getString("title");
         System.out.println(city);
@@ -160,7 +150,9 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("full_value", full_value);
         editor.putString("autologin", autologin);
         editor.putString("address", address);
+        set_log_time(MyObj);
         editor.apply();
+        createNotificationChannel();
         System.out.println(title);
         System.out.println(promo);
 
