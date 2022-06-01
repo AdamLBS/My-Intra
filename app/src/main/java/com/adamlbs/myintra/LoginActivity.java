@@ -63,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
                 address = myAddress.getText().toString().toLowerCase().trim();
                 address.replaceAll("\\s+$", "");
                 autologin = myAutoLogin.getText().toString().trim();
+                if (!autologin.startsWith("https://"))
+                    autologin = "https://" + autologin;
                 System.out.println(address);
                 System.out.println(autologin);
                 full_value = autologin;

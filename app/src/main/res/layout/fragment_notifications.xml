@@ -14,7 +14,25 @@
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/lato_black"
+            android:textSize="18sp"
+            android:layout_marginStart="15dp"
+            android:text="" />
 
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/welcome"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Alerts"
+            android:textSize="25sp" />
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
             android:layout_width="wrap_content"

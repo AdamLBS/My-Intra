@@ -25,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -103,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void set_values(JSONObject MyObj, String gpa, String full_value, String autologin, String address) throws JSONException {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
         String title = MyObj.getString("title");
         String semester_code = MyObj.getString("semester_code");
         String credits = MyObj.getString("credits");
@@ -123,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("autologin", autologin);
         editor.putString("address", address);
         editor.putInt("run", 1);
+        editor.putInt("day", calendar.get(Calendar.DAY_OF_MONTH));
+        editor.putInt("month", calendar.get(Calendar.MONTH));
+        editor.putInt("year", calendar.get(Calendar.YEAR));
         editor.apply();
         System.out.println(title);
         System.out.println(promo);

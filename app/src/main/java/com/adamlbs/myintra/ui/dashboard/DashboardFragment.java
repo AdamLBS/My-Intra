@@ -1,13 +1,18 @@
 package com.adamlbs.myintra.ui.dashboard;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import static java.lang.String.format;
 
@@ -20,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.adamlbs.myintra.MyRecyclerViewAdapter;
 import com.adamlbs.myintra.R;
 import com.adamlbs.myintra.databinding.FragmentDashboardBinding;
+import com.google.android.material.button.MaterialButton;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -55,11 +61,37 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
        // System.out.println(currentDate);
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("title", Context.MODE_PRIVATE);
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("title", MODE_PRIVATE);
+        SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("title", MODE_PRIVATE).edit();
         String autologin = preferences.getString("autologin", "");
-        String test = autologin + "/planning/load?format=json&start=" + currentDate + "&end=" + currentDate;
-        System.out.println(test);
-        whenAsynchronousGetRequest_thenCorrect(autologin + "/planning/load?format=json&start=" + currentDate + "&end=" + currentDate, root);
+        final String[] test = {autologin + "/planning/load?format=json&start=" + currentDate + "&end=" + currentDate};
+        MaterialButton dateButton = root.findViewById(R.id.date_picker);
+        dateButton.setText("Selected date is : " + currentDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                                editor.putInt("year", year);
+                                editor.putInt("month", month);
+                                editor.putInt("day", day);
+                                editor.apply();
+                                String new_date = year + "-" + month + "-" + day;
+                                dateButton.setText("Selected date is : " + new_date);
+                                test[0] = autologin + "/planning/load?format=json&start=" + new_date + "&end=" + new_date;
+                                whenAsynchronousGetRequest_thenCorrect(test[0], root);
+                            }
+                        },  preferences.getInt("year",calendar.get(Calendar.YEAR)), preferences.getInt("month",calendar.get(Calendar.MONTH)), preferences.getInt("day",calendar.get(Calendar.DAY_OF_MONTH)));
+                datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+                datePickerDialog.show();
+            }
+        });
+        System.out.println(test[0]);
+        whenAsynchronousGetRequest_thenCorrect(test[0], root);
         return root;
     }
 
@@ -103,10 +135,6 @@ public class DashboardFragment extends Fragment {
                 planning.add(my_obj.getJSONObject(j).getString("acti_title") + '\n' + get_time_left(my_obj.getJSONObject(j).getString("start")));
                 update_view(root, planning,event_nb);
             }
-          //  String val = my_obj.getJSONObject(j).getString("title");
-            //val = parse_response(val);
-            //String full_val = Html.fromHtml(val).toString();
-            //animalNames.add(full_val);
         }
 
     }

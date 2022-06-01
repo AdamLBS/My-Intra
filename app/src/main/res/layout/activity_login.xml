@@ -37,14 +37,18 @@
             android:layout_marginTop="100dp"
             android:layout_marginRight="30dp"
             android:layout_below="@id/title">
+
             <EditText
                 android:id="@+id/adress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginLeft="100dp"
-                android:background="@drawable/input"
                 android:layout_centerInParent="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/input"
                 android:ellipsize="start"
                 android:gravity="center"
                 android:hint="Enter your epitech login adress"

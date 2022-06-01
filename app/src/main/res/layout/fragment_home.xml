@@ -7,19 +7,21 @@
     android:layout_gravity="center"
     tools:context=".ui.home.HomeFragment">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="true"
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
+            android:layout_gravity="center"
             android:fontFamily="@font/lato_black"
             android:gravity="center_horizontal"
             android:text="Welcome,"
@@ -32,15 +34,14 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_bold"
             android:text="NAME"
-            android:textSize="25sp"
-            android:layout_marginStart="15dp" />
+            android:gravity="center_horizontal"
+            android:textSize="25sp"/>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/name"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="15dp"
             android:gravity="center"
             android:background="@drawable/card_view_blue">
             <LinearLayout
@@ -75,10 +76,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/card1"
             android:gravity="center"
-            android:layout_marginTop="100dp"
-            android:text="Coming soon... \n Under development"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Your Projects"
             android:textSize="40dp"
             android:fontFamily="@font/lato_black"
             />
-    </RelativeLayout>
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

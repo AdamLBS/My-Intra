@@ -16,24 +16,41 @@
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/lato_black"
+            android:textSize="18sp"
+            android:layout_marginStart="15dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/welcome"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Planning"
+            android:textSize="25sp" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/card_view_blue"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="@+id/scrollView2"
             app:layout_constraintTop_toTopOf="@+id/scrollView2">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_view_blue"
                 android:orientation="vertical"
                 android:padding="16dp">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -42,7 +59,6 @@
                     android:text="You have"
                     android:textColor="@color/white"
                     android:textSize="40dp" />
-
                 <TextView
                     android:id="@+id/events_nb"
                     android:gravity="center"
@@ -54,6 +70,12 @@
                     android:textSize="40dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/my_blue"
+            android:text="Selected date is :"/>
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView2"
             android:layout_width="wrap_content"
@@ -67,7 +89,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
-
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

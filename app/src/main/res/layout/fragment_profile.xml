@@ -6,12 +6,14 @@
     android:layout_gravity="center"
     android:layout_height="match_parent"
     tools:context=".ui.profil.ProfilFragment">
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="true"
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/welcome"
@@ -26,21 +28,22 @@
         <TextView
             android:id="@+id/name"
             android:layout_width="fill_parent"
-            android:layout_below="@id/welcome"
             android:layout_height="wrap_content"
+            android:layout_below="@id/welcome"
+            android:layout_marginStart="15dp"
             android:fontFamily="@font/lato_bold"
             android:text="My Profile"
-            android:textSize="25sp"
-            android:layout_marginStart="15dp" />
+            android:textSize="25sp" />
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/first_card"
-            android:layout_below="@id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
+            android:background="@drawable/card_view_blue"
             android:gravity="center"
-            android:background="@drawable/card_view_blue">
+            app:layout_constraintStart_toStartOf="@+id/scrollView2"
+            app:layout_constraintTop_toTopOf="@+id/scrollView2">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -234,5 +237,5 @@
                 </RelativeLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-    </RelativeLayout>
+    </LinearLayout>
 </FrameLayout>
